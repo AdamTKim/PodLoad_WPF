@@ -1,0 +1,481 @@
+﻿<!--53B19D17B86453DDBE3E8F24C52E96A9-->
+<!--09B7BAA5086E3F2FE3E2C537FC49DB6D38074626-->
+<mah:MetroWindow x:Class="PodLoad_WPF.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Pod Operational Tool" Height="775" Width="1700" MinHeight="775" MinWidth="1150" WindowState="Maximized"
+        Activated="MetroWindow_Activation" Deactivated="MetroWindow_Activation">
+    <Grid>
+        <!--********** STATUS BAR **********-->
+        <StatusBar x:Name="mainWindowStatus" Margin="0,0,0,0" Height="28" VerticalAlignment="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="statusLabel" Grid.Column="0" Content="Status:" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12"/>
+                <Label x:Name="statusReadyLabel" Grid.Column="1" Content="Ready" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12" Visibility="Visible"/>
+                <Label x:Name="statusLoadLabel" Grid.Column="1" Content="Loading..." HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12" Visibility="Hidden"/>
+                <mah:MetroProgressBar x:Name="syncBar" Grid.Column="2" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,0" Width="150" Visibility="Hidden"/>
+            </Grid>
+        </StatusBar>
+        <!--********** MENU **********-->
+        <Menu x:Name="mainMenu" Background="#576573" Margin="0,-30,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190">
+            <MenuItem x:Name="mainMenuButton" Header="MENU" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontStyle="Italic" FontFamily="Arial" 
+                      Height="30" Background="#576573" Margin="15,1,0,0" TabIndex="1">
+                <MenuItem x:Name="dashboardMenuButton" Header="Daily Dashboard" FontSize="15" Background="#576573"/>
+                <MenuItem x:Name="swapMenuButton" Header="DRD Swap" FontSize="15" Background="#576573" Click="SwapButton_Click"/>
+                <MenuItem x:Name="changeMenuButton" Header="Change Previous Record" FontSize="15" Background="#576573" Click="ChangeButton_Click"/>
+                <MenuItem x:Name="exportMenuButton" Header="View / Export Previous Records" FontSize="15" Background="#576573" Click="ExportButton_Click"/>
+                <MenuItem x:Name="phoneMenuButton" Header="Phone Book" FontSize="15" Background="#576573" Click="PhoneBookButton_Click"/>
+                <MenuItem x:Name="toggleMenuButton" Header="Toggle Dark/Light Mode" FontSize="15" Background="#576573" Click="ModeToggleButton_Click"/>
+                <MenuItem x:Name="toggleCodeKeyButton" Header="Toggle Code Key" FontSize="15" Background="#576573" Click="CodeKeyToggleButton_Click"/>
+                <MenuItem x:Name="helpMenuButton" Header="Help" FontSize="15" Background="#576573"/>
+            </MenuItem>
+        </Menu>
+        <!--********** CODE KEY GRID **********-->
+        <Grid x:Name="codeKeyGrid" Margin="26,0,22,30" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+            <Border BorderBrush="Gray" BorderThickness="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="codeKeyLabel_1" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="0" Grid.Row="0" Content="AM - Aircraft Maintenance"/>
+                    <Label x:Name="codeKeyLabel_2" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="0" Grid.Row="1" Content="ARDS - Advanced Range Data System"/>
+                    <Label x:Name="codeKeyLabel_3" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="0" Grid.Row="2" Content="B/T - Bad Track"/>
+                    <Label x:Name="codeKeyLabel_4" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="0" Grid.Row="3" Content="DNTO - Did Not Turn On"/>
+                    <Label x:Name="codeKeyLabel_5" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="0" Grid.Row="4" Content="FB - Fuel Barn"/>
+                    <Label x:Name="codeKeyLabel_6" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="1" Grid.Row="0" Content="GF - Green Flag West"/>
+                    <Label x:Name="codeKeyLabel_7" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="1" Grid.Row="1" Content="HH - Hush House"/>
+                    <Label x:Name="codeKeyLabel_8" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="1" Grid.Row="2" Content="MR - Mission Requirement"/>
+                    <Label x:Name="codeKeyLabel_9" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="1" Grid.Row="3" Content="N/T - No Track"/>
+                    <Label x:Name="codeKeyLabel_10" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="2" Grid.Row="0" Content="PMI - Preventive Maintenance Inspection"/>
+                    <Label x:Name="codeKeyLabel_11" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="2" Grid.Row="1" Content="PP - Phase Prep"/>
+                    <Label x:Name="codeKeyLabel_12" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="2" Grid.Row="2" Content="PE - Pilot Error"/>
+                    <Label x:Name="codeKeyLabel_13" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="2" Grid.Row="3" Content="RA - Reconfigure A/C"/>
+                    <Label x:Name="codeKeyLabel_14" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="3" Grid.Row="0" Content="RM - Rail Maintenance"/>
+                    <Label x:Name="codeKeyLabel_15" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="3" Grid.Row="1" Content="RTB - RTN to Base"/>
+                    <Label x:Name="codeKeyLabel_16" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="3" Grid.Row="2" Content="SD - Static Deploy"/>
+                    <Label x:Name="codeKeyLabel_17" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="3" Grid.Row="3" Content="REF - Refly POD"/>
+                    <Label x:Name="codeKeyLabel_18" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="4" Grid.Row="0" Content="SP - Spare Aircraft"/>
+                    <Label x:Name="codeKeyLabel_19" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="4" Grid.Row="1" Content="TCTO - Time Compliance Technical Order"/>
+                    <Label x:Name="codeKeyLabel_20" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="4" Grid.Row="2" Content="TP - TDY Prep"/>
+                    <Label x:Name="codeKeyLabel_21" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="4" Grid.Row="3" Content="WA - Wash Rack"/>
+                    <Label x:Name="codeKeyLabel_22" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Bottom" FontSize="15" Grid.Column="4" Grid.Row="4" Content="WLT - Weapons Load Training"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <!--********** LABELS **********-->
+        <Label x:Name="programTitle" Content="Pod Operational Tool" HorizontalAlignment="Left" Margin="22,25,0,0" VerticalAlignment="Top" FontSize="50" FontStyle="Italic" FontFamily="Arial"/>
+        <Label x:Name="shiftLabel" Content="Work Shift:" HorizontalAlignment="Left" Margin="22,111,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="unitLabel" Content="Unit:" HorizontalAlignment="Left" Margin="22,161,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="aircraftLabel" Content="Aircraft Type:" HorizontalAlignment="Left" Margin="22,211,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="tailnoLabel" Content="Tail Number:" HorizontalAlignment="Left" Margin="22,261,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="podnoLabel" Content="Pod Number:" HorizontalAlignment="Left" Margin="22,311,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="drdnoLabel" Content="DRD Number:" HorizontalAlignment="Left" Margin="22,411,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="torqueLabel" Content="T-Wrench:" HorizontalAlignment="Left" Margin="266,411,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stationLabel" Content="Station:" HorizontalAlignment="Left" Margin="22,361,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="exerciseLabel" Content="Exercise:" HorizontalAlignment="Left" Margin="266,361,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="codeLabel" Content="Code:" HorizontalAlignment="Left" Margin="22,461,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="trackingLabel" Content="Tracking:" HorizontalAlignment="Left" Margin="325,495,0,0" VerticalAlignment="Top" IsEnabled="False" FontSize="13"/>
+        <Label x:Name="commentLabel" Content="Comments:" HorizontalAlignment="Left" Margin="22,511,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="currentLabel" Content="Currently:" HorizontalAlignment="Left" Margin="557,31,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="rowCountLabel" Content="0" HorizontalAlignment="Right" Margin="0,0,130,2" VerticalAlignment="Bottom" FontSize="12"/>
+        <Label x:Name="rowLabel" Content=": Records Pending Sync" HorizontalAlignment="Right" Margin="0,0,5,2" VerticalAlignment="Bottom" FontSize="12"/>
+        <!--********** RADIO BUTTONS **********-->
+        <RadioButton x:Name="shift1Button" Content="Shift 1" GroupName="shiftButtons" HorizontalAlignment="Left" Margin="147,116,0,0" VerticalAlignment="Top" TabIndex="5"/>
+        <RadioButton x:Name="shift2Button" Content="Shift 2" GroupName="shiftButtons" HorizontalAlignment="Left" Margin="223,116,0,0" VerticalAlignment="Top" TabIndex="6"/>
+        <RadioButton x:Name="shift3Button" Content="Shift 3" GroupName="shiftButtons" HorizontalAlignment="Left" Margin="299,116,0,0" VerticalAlignment="Top" TabIndex="7"/>
+        <RadioButton x:Name="shift4Button" Content="WKND" GroupName="shiftButtons" HorizontalAlignment="Left" Margin="375,116,0,0" VerticalAlignment="Top" TabIndex="8"/>
+        <RadioButton x:Name="statusmreqButton" Content="MR" GroupName="statusButtons" HorizontalAlignment="Left" Margin="299,267,0,0" VerticalAlignment="Top" IsChecked="True" TabIndex="13"/>
+        <RadioButton x:Name="statussprButton" Content="SP" GroupName="statusButtons" HorizontalAlignment="Left" Margin="375,267,0,0" VerticalAlignment="Top" TabIndex="14"/>
+        <RadioButton x:Name="uploadingButton" Content="UPLOADING" GroupName="modeButtons" Margin="558,66,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                     IsChecked="True" Click="InputModeChange_Click" Foreground="Green" TabIndex="3"/>
+        <RadioButton x:Name="downloadingButton" Content="DOWNLOADING" GroupName="modeButtons" Margin="658,66,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="InputModeChange_Click" 
+                     Foreground="Red" TabIndex="4"/>
+        <!--********** CHECKBOXES **********-->
+        <CheckBox x:Name="tdyBox" Content="TDY" HorizontalAlignment="Left" Margin="376,167,0,0" VerticalAlignment="Top" TabIndex="10"/>
+        <CheckBox x:Name="weightedBox" Content="Weighted" HorizontalAlignment="Left" Margin="299,317,0,0" VerticalAlignment="Top" IsEnabled="False" TabIndex="16"/>
+        <CheckBox x:Name="editBox" Content="Edit Table" HorizontalAlignment="Left" Margin="658,36,0,0" VerticalAlignment="Top" TabIndex="2" Click="DataGrid_Edit"/>
+        <CheckBox x:Name="trackingBTBox" Content="BT" HorizontalAlignment="Left" Margin="393,500,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="False" TabIndex="22" Click="TrackingBox_Click"/>
+        <CheckBox x:Name="trackingNTBox" Content="NT" HorizontalAlignment="Left" Margin="437,500,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="False" TabIndex="23" Click="TrackingBox_Click"/>
+        <!--********** COMBOBOXES **********-->
+        <ComboBox x:Name="unitInput" HorizontalAlignment="Left" Margin="148,161,0,0" VerticalAlignment="Top" Width="180" IsEditable="True" Height="26" VerticalContentAlignment="Center" TabIndex="9" 
+                  IsTabStop="True" Loaded="ComboBox_Loaded" TextBoxBase.TextChanged="SelectAircraftFromUnit" GotKeyboardFocus="ComboBox_GotKeyboardFocus">
+            <ComboBoxItem Content="VIPER TFA"/>
+            <ComboBoxItem Content="VIPER TF"/>
+            <ComboBoxItem Content="VAQ 135"/>
+            <ComboBoxItem Content="TOMAHAWK"/>
+            <ComboBoxItem Content="THUNDER TF"/>
+            <ComboBoxItem Content="THUNDER CB"/>
+            <ComboBoxItem Content="STRIKE TF"/>
+            <ComboBoxItem Content="STRIKE CB"/>
+            <ComboBoxItem Content="FALCON"/>
+            <ComboBoxItem Content="EAGLE TF"/>
+            <ComboBoxItem Content="EAGLE CB"/>
+            <ComboBoxItem Content="DRAKEN"/>
+            <ComboBoxItem Content="391 FS"/>
+            <ComboBoxItem Content="361 FS"/>
+            <ComboBoxItem Content="335 FS"/>
+        </ComboBox>
+        <ComboBox x:Name="aircraftInput" HorizontalAlignment="Left" Margin="148,211,0,0" VerticalAlignment="Top" Width="267" IsEditable="True" Height="26" VerticalContentAlignment="Center" 
+                  TextBoxBase.TextChanged="ChangeStationOptions" TabIndex="11" IsTabStop="True" Loaded="ComboBox_Loaded" GotKeyboardFocus="ComboBox_GotKeyboardFocus">
+            <ComboBoxItem Content="A-4"/>
+            <ComboBoxItem Content="A-10"/>
+            <ComboBoxItem Content="B-52"/>
+            <ComboBoxItem Content="F-1"/>
+            <ComboBoxItem Content="F-15C"/>
+            <ComboBoxItem Content="F-15D"/>
+            <ComboBoxItem Content="F-15E"/>
+            <ComboBoxItem Content="F-16"/>
+            <ComboBoxItem Content="F-18A"/>
+            <ComboBoxItem Content="F-18B"/>
+            <ComboBoxItem Content="F-18C"/>
+            <ComboBoxItem Content="F-18D"/>
+            <ComboBoxItem Content="F-18E"/>
+            <ComboBoxItem Content="F-18F"/>
+            <ComboBoxItem Content="F-18G"/>
+            <ComboBoxItem Content="F-22"/>
+            <ComboBoxItem Content="F-35"/>
+            <ComboBoxItem Content="L-159"/>
+            <ComboBoxItem Content="TORNADO"/>
+            <ComboBoxItem Content="TYPHOON"/>
+        </ComboBox>
+        <ComboBox x:Name="tailnoInput" HorizontalAlignment="Left" Height="26" Margin="148,261,0,0" VerticalAlignment="Top" Width="121" VerticalContentAlignment="Center" IsEditable="True"
+                 Loaded="ComboBox_Loaded" TabIndex="12" IsTabStop="True">
+        </ComboBox>
+        <ComboBox x:Name="torqueInput" HorizontalAlignment="Left" Margin="377,411,0,0" VerticalAlignment="Top" Width="100" IsEditable="True" Height="26" VerticalContentAlignment="Center" 
+                  TabIndex="20" IsTabStop="True" Loaded="ComboBox_Loaded" GotKeyboardFocus="ComboBox_GotKeyboardFocus">
+            <ComboBoxItem Content="N08858"/>
+            <ComboBoxItem Content="N09039"/>
+            <ComboBoxItem Content="N09074"/>
+            <ComboBoxItem Content="N29057"/>
+            <ComboBoxItem Content="N29107"/>
+            <ComboBoxItem Content="N29146"/>
+            <ComboBoxItem Content="N31081"/>
+        </ComboBox>
+        <ComboBox x:Name="stationInput" HorizontalAlignment="Left" Margin="148,361,0,0" VerticalAlignment="Top" Width="61" IsEditable="True" Height="26" VerticalContentAlignment="Center" 
+                  TabIndex="17" IsTabStop="True" Loaded="ComboBox_Loaded" GotKeyboardFocus="ComboBox_GotKeyboardFocus">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+        </ComboBox>
+        <ComboBox x:Name="exerciseInput" HorizontalAlignment="Left" Margin="353,361,0,0" VerticalAlignment="Top" Width="124" IsEditable="False" Height="26" VerticalContentAlignment="Center" TabIndex="18">
+            <ComboBoxItem Content="LOCAL"/>
+            <ComboBoxItem Content="RF"/>
+            <ComboBoxItem Content="GF WEST"/>
+            <ComboBoxItem Content="UTTR"/>
+        </ComboBox>
+        <ComboBox x:Name="codeInput" HorizontalAlignment="Left" Margin="94,461,0,0" VerticalAlignment="Top" Width="383" IsEditable="False" Height="26" VerticalContentAlignment="Center" TabIndex="21">
+            <ComboBoxItem Content="UPLD - Standard Upload"/>
+            <ComboBoxItem Content="CLHH - Location: Hush House"/>
+            <ComboBoxItem Content="CLLB - Location: Loading Barn"/>
+            <ComboBoxItem Content="CPMI - Preventative Maintenance Inspection"/>
+            <ComboBoxItem Content="CRTB - Return To Base"/>
+            <ComboBoxItem Content="CWLT - Weapons Load Training"/>
+            <ComboBoxItem Content="DNTO - Did Not Turn On"/>
+            <ComboBoxItem Content="LOLA - Location: Live Ordinance Loading Area"/>
+            <ComboBoxItem Content="RCAC - Reconfigure Aircraft"/>
+            <ComboBoxItem Content="TCTO - Time Compliance Technical Order"/>
+            <ComboBoxItem Content="TRVL - Aircraft Needs To Travel"/>
+            <ComboBoxItem Content="OTHR - Other (Comment Required)"/>
+        </ComboBox>
+        <!--********** TEXTBOXES **********-->
+        <TextBox x:Name="podnoInput" HorizontalAlignment="Left" Height="26" Margin="148,311,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" VerticalContentAlignment="Center" 
+                 PreviewTextInput="CheckIfInt" TabIndex="15" MaxLength="50"/>
+        <TextBox x:Name="drdnoInput" HorizontalAlignment="Left" Height="26" Margin="148,411,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="88" VerticalContentAlignment="Center" 
+                 PreviewTextInput="CheckIfInt" TabIndex="19" MaxLength="50"/>
+        <TextBox x:Name="commentInput" Margin="26,536,0,40" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="451" VerticalContentAlignment="Stretch" AcceptsReturn="True" 
+                 TabIndex="24"/>
+        <!--********** BUTTONS **********-->
+        <Button x:Name="saveButton" Content="SAVE" HorizontalAlignment="Left" Margin="512,0,0,40" Height="52" VerticalAlignment="Bottom" Width="109" Click="SaveButton_Click" TabIndex="26"/>
+        <Button x:Name="syncButton" Content="SYNC" Margin="0,0,22,40" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="109" Click="SyncButton_Click" TabIndex="27"/>
+        <!--********** IMAGES **********-->
+        <Image x:Name="bannerPicture" Source="C:\Users\Admin\source\repos\PodLoad_WPF\Assets\JT4Banner_Resize.png" Margin="1412,10,0,0" HorizontalAlignment="Left" Width="500" Height="111" VerticalAlignment="Top"/>
+        <!--********** DATAGRID **********-->
+        <DataGrid x:Name="displayedTable" HorizontalAlignment="Stretch" Margin="513,107,22,120" VerticalAlignment="Stretch" AutoGenerateColumns="False" ColumnHeaderHeight="40" CanUserSortColumns="False" 
+                  CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" PreviewKeyDown="DataGrid_Delete" CanUserAddRows="False" EnableRowVirtualization="False"
+                  TabIndex="25" IsTabStop="False" BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" KeyboardNavigation.TabNavigation="None" MouseDown="DataGrid_Deselect"
+                  SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#80CEE1"/>
+            </DataGrid.Resources>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete Row" Click="DataGridContext_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Height" Value="25"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ActionType}" Value="UPLOAD">
+                            <Setter Property="Background" Value="#77DD77"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ActionType}" Value="DOWNLOAD">
+                            <Setter Property="Background" Value="#FF6961"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ActionType}" Value="CHANGE_UPLOAD">
+                            <Setter Property="Background" Value="#FFB347"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ActionType}" Value="CHANGE_DOWNLOAD">
+                            <Setter Property="Background" Value="#FFB347"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Done" Binding="{Binding Done, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="False">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="21"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Work&#xA;Shift" Binding="{Binding WorkShift, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Unit" Binding="{Binding Unit, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="TDY" Binding="{Binding TDY, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="21"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Aircraft&#xA;Type" Binding="{Binding AircraftType, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Tail NO" Binding="{Binding TailNO, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Aircraft&#xA;Status" Binding="{Binding AircraftStatus, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Pod NO" Binding="{Binding PodNO, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Weighted" Binding="{Binding Weighted, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="21"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="DRD NO" Binding="{Binding DRDNO, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Torque&#xA;Wrench" Binding="{Binding TorqueWrench, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Station" Binding="{Binding Station, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Exercise" Binding="{Binding Exercise, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Code" Binding="{Binding ConditionCode, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Tracking" Binding="{Binding Tracking, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type TextBox}">
+                            <EventSetter Event="TextChanged" Handler="DataGrid_TextChanged"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</mah:MetroWindow>
+<!--53B19D17B86453DDBE3E8F24C52E96A9-->
+<!--09B7BAA5086E3F2FE3E2C537FC49DB6D38074626-->

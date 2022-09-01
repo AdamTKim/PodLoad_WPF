@@ -1,0 +1,225 @@
+﻿<!--53B19D17B86453DDBE3E8F24C52E96A9-->
+<!--09B7BAA5086E3F2FE3E2C537FC49DB6D38074626-->
+<mah:MetroWindow x:Class="PodLoad_WPF.ExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Exporting / Viewing Records" Height="450" Width="1600" MinHeight="450" MinWidth="900" WindowState="Maximized">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Purple.xaml"/>
+    </mah:MetroWindow.Resources>
+    <Grid>
+        <!--********** LABELS **********-->
+        <Label Name="windowLabel" Content="Export / View Previous Records" HorizontalAlignment="Left" Margin="22,39,0,0" RenderSize="55, 24" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" FontFamily="Arial"/>
+        <Label Name="datefromLabel" Content="Date From:" HorizontalAlignment="Left" Margin="22,130,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="datetoLabel" Content="Date To:" HorizontalAlignment="Left" Margin="202,130,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="totalUpLabel" Content="Total Uploads:" HorizontalAlignment="Left" Margin="22,180,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="totalDownLabel" Content="Total Downloads:" HorizontalAlignment="Left" Margin="22,230,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="totalUpCountLabel" Content="0" HorizontalAlignment="Left" Margin="128,180,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="totalDownCountLabel" Content="0" HorizontalAlignment="Left" Margin="149,230,0,0" RenderSize="139, 24" VerticalAlignment="Top" FontSize="15"/>
+        <!--********** DATEPICKER **********-->
+        <DatePicker Name="datefromInput" HorizontalAlignment="Left" Margin="108,130,0,0" VerticalAlignment="Top" TabIndex="1" IsTabStop="True" Focusable="False"/>
+        <DatePicker Name="datetoInput" HorizontalAlignment="Left" Margin="269,130,0,0" VerticalAlignment="Top" TabIndex="2" IsTabStop="True" Focusable="False"/>
+        <!--********** BUTTONS **********-->
+        <Button Name="searchButton" Content="SEARCH" HorizontalAlignment="Left" Margin="22,0,0,40" Height="52" VerticalAlignment="Bottom" Width="109" TabIndex="3" Click="SearchButton_Click"/>
+        <Button x:Name="exportButton" Content="EXPORT" HorizontalAlignment="Left" Margin="270,0,0,40" Height="52" VerticalAlignment="Bottom" Width="109" TabIndex="4" Click="ExportButton_Click"/>
+        <!--********** IMAGES **********-->
+        <Image x:Name="bannerPicture" Source="C:\Users\Admin\source\repos\PodLoad_WPF\Assets\coin-back-admin.png" Margin="0,1,25,0" HorizontalAlignment="Right" Width="118" Height="118" VerticalAlignment="Top"/>
+        <!--********** STATUS BAR **********-->
+        <StatusBar x:Name="exportWindowStatus" Margin="0,0,0,0" Height="28" VerticalAlignment="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="statusLabel" Grid.Column="0" Content="Status:" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12"/>
+                <Label x:Name="statusReadyLabel" Grid.Column="1" Content="Ready" HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12" Visibility="Visible"/>
+                <Label x:Name="statusLoadLabel" Grid.Column="1" Content="Loading..." HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Bottom" FontSize="12" Visibility="Hidden"/>
+                <mah:MetroProgressBar x:Name="syncBar" Grid.Column="2" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,0" Width="150" Visibility="Hidden"/>
+            </Grid>
+        </StatusBar>
+        <!--********** DATAGRID **********-->
+        <DataGrid Name="exportTable" Margin="405,120,26,40" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ColumnHeaderHeight="40" CanUserSortColumns="False" CanUserResizeColumns="False" 
+                  CanUserResizeRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False" CanUserAddRows="False" IsTabStop="True" TabIndex="5" MouseDown="Datagrid_Deselect" SelectionMode="Single" 
+                  SelectionUnit="FullRow">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Height" Value="25"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ActionType}" Value="UPLOAD">
+                            <Setter Property="Background" Value="#77DD77"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ActionType}" Value="DOWNLOAD">
+                            <Setter Property="Background" Value="#FF6961"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#80CEE1"></SolidColorBrush>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Work&#x0a;Shift" Binding="{Binding WorkShift}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="TDY" Binding="{Binding TDY}" Width="*" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="21"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Aircraft&#x0a;Type" Binding="{Binding AircraftType}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Tail NO" Binding="{Binding TailNO}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Aircraft&#x0a;Status" Binding="{Binding AircraftStatus}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Pod NO" Binding="{Binding PodNO}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Weighted" Binding="{Binding Weighted}" Width="*" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="21"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FrameworkElement.IsHitTestVisible" Value="False"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="DRD NO" Binding="{Binding DRDNO}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Torque&#x0a;Wrench" Binding="{Binding TorqueWrench}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Station" Binding="{Binding Station}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Exercise" Binding="{Binding Exercise}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Code" Binding="{Binding ConditionCode}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Tracking" Binding="{Binding Tracking}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="0,4,0,0"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</mah:MetroWindow>
+<!--53B19D17B86453DDBE3E8F24C52E96A9-->
+<!--09B7BAA5086E3F2FE3E2C537FC49DB6D38074626-->

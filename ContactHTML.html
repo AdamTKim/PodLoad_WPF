@@ -1,0 +1,506 @@
+<!--/////////////////////////////////////////////////////////////////////////////////////////
+//53B19D17B86453DDBE3E8F24C52E96A9
+//09B7BAA5086E3F2FE3E2C537FC49DB6D38074626
+//Author: Alexander Goodman (JTech676)
+//Created On: 8/25/2020
+//Last Modified On: 10/6/2020
+//Copyright: USAF // JT4 LLC
+//Description: Contact page for the PodLoad application (P5 Combat Training System).
+//This HTML file contains a (searchable) list of relevant contacts useful for the NELLIS PODSHOP.
+/////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--STYLES-->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 4px solid #4373FF;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+            #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+            }
+
+            #myTable tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+                #myTable tr.header {
+                    background-color: #8F8F8F;
+                }
+
+                #myTable tr:hover {
+                    background-color: #D1DDFF;
+                }
+    </style>
+</head>
+<body>
+    <!--HEADERS-->
+    <h1>Contacts</h1>
+    <!--INPUTS-->
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..." title="Type in a name">
+    <!--TABLES-->
+    <table id="myTable">
+        <tr class="header">
+            <th style="width:60%;">Name</th>
+            <th style="width:20%;">Primary Phone</th>
+            <th style="width:20%;">Alternate</th>
+        </tr>
+        <tr>
+            <td>[SQDN] Viper</td>
+            <td>652-2152</td>
+            <td>210-9032</td>
+        </tr>
+        <tr>
+            <td>[SQDN] Tomahawk</td>
+            <td>652-5297</td>
+            <td>210-9030</td>
+        </tr>
+        <tr>
+            <td>[SQDN] Thunder</td>
+            <td>652-6421</td>
+            <td>249-2425</td>
+        </tr>
+        <tr>
+            <td>[SQDN] Strike</td>
+            <td>652-5311</td>
+            <td>423-0695</td>
+        </tr>
+        <tr>
+            <td>[SQDN] Eagle</td>
+            <td>652-6420</td>
+            <td>271-3570</td>
+        </tr>
+        <tr>
+            <td>[SQDN] Falcon</td>
+            <td>652-2241</td>
+            <td>888-0098</td>
+        </tr>
+        <tr>
+            <td>AMXS Pro Super</td>
+            <td>652-2364</td>
+            <td>281-8899</td>
+        </tr>
+        <tr>
+            <td>Showtime</td>
+            <td>652-2200</td>
+            <td>652-4077 (Fax)</td>
+        </tr>
+        <tr>
+            <td>Slate Ops</td>
+            <td>653-5316</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>P5 Ops (CS Bldg. 200)</td>
+            <td>653-5587</td>
+            <td>653-5586 (Fax)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Tyler</td>
+            <td>652-7082</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Janice</td>
+            <td>652-5808</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Randall</td>
+            <td>652-6693</td>
+            <td>659-0621 (Puck Rm.)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Tony</td>
+            <td>652-23945</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Myria</td>
+            <td>652-2003</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Barb</td>
+            <td>652-2104</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Josh</td>
+            <td>652-4490</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[P5CTS] Curtis</td>
+            <td>652-2104</td>
+            <td>652-2200 (Showtime)</td>
+        </tr>
+        <tr>
+            <td>[CUBIC] Larry/Paul</td>
+            <td>652-7095</td>
+            <td>643-4770</td>
+        </tr>
+        <tr>
+            <td>[CUBIC] San Diego</td>
+            <td>800-854-2876</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[CUBIC] Steve Casey</td>
+            <td>800-854-2876</td>
+            <td>Ext. 2150</td>
+        </tr>
+        <tr>
+            <td>[CUBIC] Depot</td>
+            <td>800-854-2876</td>
+            <td>Ext. 2719</td>
+        </tr>
+        <tr>
+            <td>[AARI/ARDS] Shop</td>
+            <td>652-3523</td>
+            <td>652-3524</td>
+        </tr>
+        <tr>
+            <td>[TIS] Desk</td>
+            <td>652-8248</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GOV] Jeff Jaques</td>
+            <td>653-4729</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GOV] Mark Kurth</td>
+            <td>653-4502</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GOV] Don Teall</td>
+            <td>653-4930</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GOV] JR</td>
+            <td>702-933-9676</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[JT4 RMC] Tom Bloodgood</td>
+            <td>653-5291</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[JT4 RMC] Gary Sharp</td>
+            <td>399-9966</td>
+            <td>Ext. 375</td>
+        </tr>
+        <tr>
+            <td>[JT4 RMC] Management (Last Resort)</td>
+            <td>653-4638</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] War Room</td>
+            <td>652-9009</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] JT</td>
+            <td>652-8561</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] Server Room</td>
+            <td>653-4551</td>
+            <td>652-9031</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] Rick/Tanise/George</td>
+            <td>652-8561</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] Auditorium</td>
+            <td>652-4164</td>
+            <td>652-2945</td>
+        </tr>
+        <tr>
+            <td>[GREEN FLAG] Management</td>
+            <td>652-7030</td>
+            <td>883-9189</td>
+        </tr>
+        <tr>
+            <td>[Ft. Irwin] Main Line</td>
+            <td>702-539-0682</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[Ft. Irwin] Tyler Bloss</td>
+            <td>94-470-0826</td>
+            <td>94-470-0411</td>
+        </tr>
+        <tr>
+            <td>[Ft. Irwin] Ops Desk</td>
+            <td>94-470-6314</td>
+            <td>94-470-6190 (Fax)</td>
+        </tr>
+        <tr>
+            <td>[RED FLAG] Maintenance</td>
+            <td>652-0725</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[RED FLAG] MOC</td>
+            <td>679-0110</td>
+            <td>652-5086 (Fax)</td>
+        </tr>
+        <tr>
+            <td>[RED FLAG] Metals Tech (252)</td>
+            <td>652-0204</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NDI] Shop</td>
+            <td>652-9554</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[ECM POD] Shop</td>
+            <td>652-4083</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[TYBRIN] Front Desk</td>
+            <td>1-800-989-2746</td>
+            <td>1-866-598-6665 (Fax)</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Deployment Liason</td>
+            <td>652-2833</td>
+            <td>652-1708</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] WLT Office</td>
+            <td>652-3234</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] CSC Pro-Super</td>
+            <td>321-9853</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Fuel Barn</td>
+            <td>652-0522</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Base OPS</td>
+            <td>652-4600</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[RANGE] Tonopah OPS</td>
+            <td>652-5937</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Transit Alert</td>
+            <td>652-4667</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Revets Bldg.</td>
+            <td>652-5809</td>
+            <td>652-5213</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] F-35 LOLA</td>
+            <td>652-0610</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] LOLA Bldg.</td>
+            <td>652-2451</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] AFETS</td>
+            <td>652-4507</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] AVTEC</td>
+            <td>652-5502</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] F-15 Forklift</td>
+            <td>652-6256</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] RF Forklift</td>
+            <td>652-6883</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NTTR] 57th Scheduling</td>
+            <td>652-7692</td>
+            <td>652-8719</td>
+        </tr>
+        <tr>
+            <td>[NTTR] 98th Small Comp.</td>
+            <td>653-5516</td>
+            <td>653-4635 (Fax)</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Strike OPS</td>
+            <td>652-4193</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Fuel Barn</td>
+            <td>652-332</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Base Radio</td>
+            <td>652-4007</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Viper OPS</td>
+            <td>652-4997</td>
+            <td>652-7278</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Tom Sanders</td>
+            <td>652-2422</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Phil Carrero</td>
+            <td>652-4191</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Tomahawk Scheduling</td>
+            <td>654-2134</td>
+            <td>654-2135</td>
+        </tr>
+        <tr>
+            <td>[NTTR] 64th AGRS OPS Desk</td>
+            <td>652-2238</td>
+            <td>652-2164</td>
+        </tr>
+        <tr>
+            <td>[NTTR] Draken Scheduling</td>
+            <td>652-5676</td>
+            <td>725-221-0093</td>
+        </tr>
+        <tr>
+            <td>[NELLIS] Nellis Gates</td>
+            <td>652-3216</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[CREECH] Vehicle Maintenance</td>
+            <td>654-0222</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Fallon</td>
+            <td>890-2584</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Yuma</td>
+            <td>269-2905 Ext. 2167</td>
+            <td>269-5742</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] WSMR/Holloman</td>
+            <td>572-4467</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] UTTR</td>
+            <td>777-9288</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Seymour Johnson</td>
+            <td>722-0426</td>
+            <td>919-722-0426</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Miramar</td>
+            <td>858-577-6116</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Luke</td>
+            <td>896-6509</td>
+            <td>896-3381</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Shaw</td>
+            <td>803-840-2101</td>
+            <td>965-3555</td>
+        </tr>
+        <tr>
+            <td>[POD SHOP] Elmendorf</td>
+            <td>907-377-5021</td>
+            <td>907-377-4912</td>
+        </tr>
+    </table>
+    <!--SCRIPTS-->
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }
+                    else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+<!--53B19D17B86453DDBE3E8F24C52E96A9-->
+<!--09B7BAA5086E3F2FE3E2C537FC49DB6D38074626-->

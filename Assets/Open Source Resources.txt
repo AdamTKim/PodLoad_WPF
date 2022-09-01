@@ -1,0 +1,5 @@
+ControlzEX: https://github.com/ControlzEx/ControlzEx
+MahApps.Metro: https://github.com/MahApps/MahApps.Metro
+MaterialDesignInXAML: https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
+Serilog: https://github.com/serilog/serilog
+.NET Core: https://github.com/dotnet/core

@@ -1,0 +1,9 @@
+is_global = true
+build_property.ApplicationManifest = app.manifest
+build_property.StartupObject = 
+build_property.ApplicationDefaultFont = 
+build_property.ApplicationHighDpiMode = 
+build_property.ApplicationUseCompatibleTextRendering = 
+build_property.ApplicationVisualStyles = 
+build_property.RootNamespace = PodLoad_WPF
+build_property.ProjectDir = C:\Users\Admin\source\repos\PodLoad_WPF\
